@@ -15,16 +15,17 @@
                    
                    {{-- not yet ready --}}
                    {{-- coreect --}}
-                   <li><a href="{{route('teacher')}}">Add Teacher</a></li>
+                   {{-- <li><a href="{{route('teacher')}}">Add Teacher</a></li> --}}
 
-                   <li><a href="">View Teachers</a></li>
+                   {{-- <li><a href="">View Teachers</a></li> --}}
 
-                   <li><a href="{{route('staffs')}}">Add Staff</a></li>
+                   {{-- <li><a href="{{route('staffs')}}">Add Staff</a></li> --}}
                  
-                   <li><a href="">View Staff</a></li>
+                   <li><a href="{{route('staffs')}}">View Staff</a></li>
                   {{-- not yet ready --}}
                   
                    <li><a href="{{route('subject')}}">Add Subjects</a></li>
+                   <li><a href="{{route('return')}}">Return</a></li>
                    
   
                 </ul>

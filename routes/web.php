@@ -45,10 +45,11 @@ Route::get('tplan/{id}/edit', [TeachingplanController::class, 'edit'])->name('ed
 Route::put('tplan/{tplan}/update', [TeachingplanController::class, 'update'])->name('update');
 
 Route::get('/add-teacher', [AdminController::class, 'teachers'])->name('teacher');
-Route::get('/add-staff', [AdminController::class, 'staffs'])->name('staffs');
+Route::get('/view-staff', [AdminController::class, 'staffs'])->name('staffs');
 
 Route::get('/teachers', [AdminController::class, 'teacher'])->name('teachers');
 
 Route::get('/staff', [AdminController::class, 'staff'])->name('staff');
 Route::post('/role/{user}', [AdminController::class, 'role'])->name('role');
 Route::get('/principal', [TeachingplanController::class, 'principal'])->name('principal');
+Route::get('/return', [AdminController::class, 'return'])->name('return');

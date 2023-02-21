@@ -30,24 +30,48 @@ class UserController extends Controller
         $formfields['password']= bcrypt($formfields['password']);
         
         $user = User::create($formfields);
+        // $subjects = Subject::all();
+        // $dept = Department::all();
+        $admin = User::where('role_id', 'admin')->first();
+        $staff= User::where('role_id', 'staff')->get();
+        $teacher= User::where('role_id', 'teacher')->get();
+       
+        
+        // dd($hodlang);
         $subjects = Subject::all();
         $dept = Department::all();
+        
+        // $tplans = Teaching_plan::get();
 
         if($user->role_id == 'admin')
       {
         auth()->login($user);
-     return view('dashboard.admin')->with('message', 'Registration Successful');
+        return view('management.admin.teacher', ['teachers'=> $teacher, 'staff' => $staff])->with('message', 'Reg Successful');
+    //  return view('dashboard.admin')->with('message', 'Registration Successful');
       }elseif($user->role_id == 'staff'){
         auth()->login($user);
-        return view('dashboard.staff')->with('message', 'Registration successful');
+        return view('management.admin.staff');
+        // return view('dashboard.staff')->with('message', 'Registration successful');
     }else{
         auth()->login($user);
-        return view('dashboard.teacher', ['subjects' =>  $subjects, 'dept' => $dept])->with('message', 'Registration Successful');
+        return view('dashboard.teacher', ['subjects' =>  $subjects, 'dept' => $dept]);
+        // return view('dashboard.teacher', ['subjects' =>  $subjects, 'dept' => $dept])->with('message', 'Registration Successful');
     }
         
     }
   
 
+    // if(auth()->user()->role_id == 'admin'){
+    //     return view('management.admin.teacher', ['teachers'=> $teacher, 'staff' => $staff])->with('message', 'Login Successful');
+    //     }elseif(auth()->user()->role_id == 'staff'){
+    //         return view('management.admin.staff');
+    //     }
+       
+    //     elseif(auth()->user()->role_id == 'teacher'){
+    //         return view('dashboard.teacher', ['subjects' =>  $subjects, 'dept' => $dept]);
+
+
+    
     public function login(){
         return view('auth.login');
     }
@@ -59,12 +83,14 @@ class UserController extends Controller
         ]);  
         $checkuser = User::where('email', $request->email)->first();
         $admin = User::where('role_id', 'admin')->first();
+        $staff= User::where('role_id', 'staff')->get();
+        $teacher= User::where('role_id', 'teacher')->get();
        
         
         // dd($hodlang);
         $subjects = Subject::all();
         $dept = Department::all();
-        $teacher= User::where('role_id', 'teacher')->get();
+        
         $tplans = Teaching_plan::get();
         // $stplan = Teaching_plan::where('department_id', '1')->get();
         // $htplan = Teaching_plan::where('department_id', '2')->get();
@@ -74,20 +100,14 @@ class UserController extends Controller
         if(Auth::attempt($user) and $admin){ 
             // dd(auth()->user()->role_id == 'teacher' and auth()->user()->is_hod == '0');
             if(auth()->user()->role_id == 'admin'){
-            return view('management.admin.teacher', ['teachers'=> $teacher])->with('message', 'Login Successful');
+            return view('management.admin.teacher', ['teachers'=> $teacher, 'staff' => $staff])->with('message', 'Login Successful');
             }elseif(auth()->user()->role_id == 'staff'){
-                return view('dashboard.staff');
+                return view('management.admin.staff');
             }
-            // elseif(auth()->user()->role_id == 'teacher' and auth()->user()->is_hod == '1'){
-            //     return view('management.hod.scihod', ['subjects' =>  $subjects, 'dept' => $dept]);
-            // }elseif(auth()->user()->role_id == 'teacher' and auth()->user()->is_hod == '3'){
-            //     return view('management.hod.langhod', ['subjects' =>  $subjects, 'dept' => $dept]);
-            // }elseif(auth()->user()->role_id == 'teacher' and auth()->user()->is_hod == '2'){
-            //     return view('management.hod.humhod', ['subjects' =>  $subjects, 'dept' => $dept]);
-            // }
+           
             elseif(auth()->user()->role_id == 'teacher'){
                 return view('dashboard.teacher', ['subjects' =>  $subjects, 'dept' => $dept]);
-            } elseif(auth()->user()->role_id == 'principal'){
+            } elseif(auth()->user()->role_id == 'principal'){         
                 return view('management.principal.principal',['tplans' => $tplans]);
             }
         }elseif(!$checkuser){

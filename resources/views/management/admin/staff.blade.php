@@ -51,19 +51,7 @@
 <td>{{$staff->email}}</td>
 <td>{{$staff->contact_number}}</td>
 
-{{-- <td>
-<form action="{{route('activate', $tplan->id)}}" method="POST">
-    @csrf
-    <button type="submit" class="btn btn-success">Action</button>
-</form>
-</td> --}}
-{{-- <td>
-    <form action="{{route('comment', $tplan->id)}}" method="POST">
-        @csrf
-        <input type="text" placeholder="Write Comment" style="border: none;" name="hod_comments">
-        <button type="submit" class="btn btn-warning">Submit Comment</button>
-    </form>
-</td> --}}
+
 
 </tr>
 

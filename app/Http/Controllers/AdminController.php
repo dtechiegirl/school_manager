@@ -9,13 +9,16 @@ class AdminController extends Controller
 {
     // to add teachers
     public function teachers(){
+     
         return view('management.admin.add-teacher');
     }
 
     
     // to add staff
     public function staffs(){
-        return view('management.admin.add-staff');
+        $staff=User::where('role_id','staff')->get();
+        // dd($staff);
+        return view('management.admin.view-staff',['staff'=> $staff]);
     }
 
     //to make teachers hod
@@ -57,4 +60,8 @@ class AdminController extends Controller
             return redirect()->route('teachers', ['user' => $user])->with('message', 'HOD Status Removed');
         }
      }
+     public function return(){
+        return back();
+     }
 }
+
